@@ -1,0 +1,30 @@
+<% show_post ||= false %>
+
+<% if !comment.new_record? %>
+	<div class="row">	
+		<div class="span0 well text-center">
+			<% if logged_in? %>
+			  <%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: :post do %>
+			    <i class="icon-arrow-up"></i>
+			  <% end %>
+			  </br>
+			<% end %>
+		  <%= comment.total_votes %> Votes
+		  </br>
+		  <% if logged_in? %>
+			  <%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: :post do %>
+			    <i class="icon-arrow-down"></i>
+			  <% end %>
+			<% end %>
+		</div>  
+
+		<div class="span8 well">
+		  <p> <%= comment.body %>
+		  <% if show_post %>
+		 	 on <%= link_to(comment.post.title, post_path(comment.post)) %>
+		  <% end %>
+			</p>
+		  <span class="quiet">created at <%= friendly_datetime(comment.created_at) %> by <%= link_to(comment.creator.username, user_path(comment.creator)) %> </span>
+		</div>
+	</div>
+<% end %>

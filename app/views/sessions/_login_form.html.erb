@@ -1,0 +1,19 @@
+<%= render '/shared/errors', errors: @user.errors if @user %>
+
+<div class="well">
+	<%= form_tag '/login' do %>
+
+		<div class = "control-group">
+			<%= label_tag :username %>
+			<%= text_field_tag :username %><br/>
+		</div>
+
+		<div class = "control-group">
+			<%= label_tag :password %>
+			<%= password_field_tag :password %><br/>
+		</div>
+
+		<%= submit_tag 'Login', class: "btn btn-primary" %>
+
+	<% end %>
+</div>

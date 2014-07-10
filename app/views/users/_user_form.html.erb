@@ -1,0 +1,24 @@
+<%= render '/shared/errors', errors: @user.errors %>
+
+<div class="well">
+	<%= form_for @user do |f| %>
+
+		<div class = "control-group">
+			<%= f.label :username %>
+			<%= f.text_field :username %><br/>
+		</div>
+
+		<div class = "control-group">
+			<%= f.label :password %>
+			<%= f.password_field :password %><br/>
+		</div>
+
+		<div class = "control-group">
+			<%= f.label :password_confirmation %>
+			<%= f.password_field :password_confirmation %><br/>
+		</div>
+
+		<%= f.submit class: "btn btn-primary" %>
+
+	<% end %>
+</div>
