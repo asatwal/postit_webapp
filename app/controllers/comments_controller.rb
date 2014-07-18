@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
 
   def create
 
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by slug: params[:post_id]
 
     @comment = @post.comments.new(comment_params)
 
@@ -22,15 +22,24 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    @vote = Vote.new(creator: current_user, voteable: @comment, vote: params[:vote])
+    @vote = Vote.create(creator: current_user, voteable: @comment, vote: params[:vote])
 
-    if @vote.save
-     flash[:notice] = "Your vote was counted"
-    else
-     flash[:error] = "You are only allowed to vote on that comment once"
+    respond_to do |format|
+
+      format.html do
+
+       if @vote.valid?
+         flash[:notice] = "Your vote was counted"
+       else
+        flash[:error] = "You are only allowed to vote on that comment once"
+       end
+
+        redirect_to :back
+      end
+
+      format.js
     end
 
-    redirect_to :back
   end
 
 
