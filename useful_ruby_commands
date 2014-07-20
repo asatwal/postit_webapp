@@ -1,0 +1,8 @@
+# Time zone is available in Ruby
+Time.zone.name
+
+# For time zone select in a form Rails 4 provides time_zone_select field
+ActiveSupport::TimeZone gives an array for the form
+
+
+

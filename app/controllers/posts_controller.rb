@@ -5,7 +5,18 @@ class PostsController < ApplicationController
   before_action :require_creator, only: [:edit, :update] 
 
   def index
-  	@posts = Post.all.sort_by{|post| post.total_votes}.reverse
+    @posts = Post.all.sort_by{|post| post.total_votes}.reverse
+
+    respond_to do |format|
+
+      format.html
+
+      format.xml {render xml: @posts}
+
+      format.json {render json: @posts}
+
+    end
+
   end
 
   def show
@@ -77,7 +88,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :url, :description, category_ids: [])
   end
 
-  def check_user
+  def require_creator
     access_denied unless logged_in? && (current_user.admin? || current_user == @post.creator)
   end
 
