@@ -7,6 +7,8 @@ PostitTemplate::Application.routes.draw do
   get  '/logout', to: 'sessions#destroy'
 
   get  '/register', to: 'users#new'
+  get  '/pin', to: 'sessions#pin'
+  post '/pin', to: 'sessions#pin'
 
   resources :users, only: [:show, :create, :edit, :update]
 

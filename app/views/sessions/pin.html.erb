@@ -1,0 +1,17 @@
+<%= render '/shared/content_title', title: 'Two Factor Login Verification' %>
+
+<p>A PIN has been sent to your phone via SMS.</p>
+
+<div class="well">
+
+  <%= form_tag '/pin', method: :post do %>
+
+    <div class = "control-group">
+      <%= label_tag :pin, 'PIN' %>
+      <%= text_field_tag :pin %><br/>
+    </div>
+
+    <%= submit_tag 'Enter PIN to continue Login', class: "btn btn-success" %>
+
+  <% end %>
+</div>

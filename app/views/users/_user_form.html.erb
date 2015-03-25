@@ -19,6 +19,14 @@
 		</div>
 
 		<div class = "control-group">
+			<%= f.label :phone, 'Phone number' %>
+			<%= f.text_field :phone %>
+			<%= link_to '#', id: 'two_factor_phone' do %>
+			  <i class='icon-question-sign'></i><br/>
+			<% end %>
+		</div>
+
+		<div class = "control-group">
 			<%= f.label :time_zone %>
 			<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.all, default: Time.zone.name %><br/>
 		</div>

@@ -1,3 +1,5 @@
+require 'twilio-ruby'
+
 class User < ActiveRecord::Base
 
 	include Slugable
@@ -24,6 +26,33 @@ class User < ActiveRecord::Base
 
 	def admin?
 		self.role == 'admin'
+	end
+
+	def two_factor_auth?
+		!self.phone.blank?
+	end
+
+	def generate_pin!
+		update_column(:pin, rand(10**6))
+	end
+
+	def clear_pin!
+		update_column(:pin, nil)
+	end
+
+	def send_pin_to_twilio
+
+    account_sid = 'AC46471d9a2f161c83223106f21810674b'
+    auth_token = 'c2378a79d97e33ff78f8a9ab78ee1366'
+    client = Twilio::REST::Client.new account_sid, auth_token
+
+    msg = "Hello from the eWorx PostIt App. Enter the PIN #{self.pin} to verify your account."
+ 
+    message = client.account.messages.create(body: msg,
+        to: self.phone,
+        from: '+441254790257')
+
+    puts message.to
 	end
 
 end
